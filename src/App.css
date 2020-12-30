@@ -14,10 +14,30 @@
   align-items: center;
 }
 
-.issue-list {
+.ai-fe {
+  align-items: flex-end;
+}
+
+.vertical {
+  flex-direction: column;
+}
+
+.cover {
   padding: 0 16px;
 }
 
 .issue-card {
   border-bottom: 1px solid #e0e0e0
+}
+
+.issue-comment-count {
+  min-width: 10ex;
+  text-align: right;
+  padding-top: 5px;
+}
+
+.avatar-size {
+  width: 40px;
+  height: 40px;
+  display: block;
 }
