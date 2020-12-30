@@ -1,24 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import api from './api/common';
 import './App.css';
 
-function App() {
+import IssueList from './components/issueList';
+
+const App: React.FC = () => {
+  const [issueList, setIssueList] = useState(null);
+  const owner = 'Angular';
+  const repoName = 'Angular-cli';
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result =
+        await api.send<any>('repos/angular/angular-cli/issues')
+          .then(({ data }) => data);
+
+        console.log(result);
+
+      setIssueList(result);
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>{owner} / {repoName}</h1>
+      {
+        issueList
+        ? <IssueList data={issueList}></IssueList>
+        : null
+      }
     </div>
   );
 }
