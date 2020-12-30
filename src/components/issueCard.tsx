@@ -1,15 +1,17 @@
 import React, { useCallback } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { IssueBody } from '../@types/issue';
+import Advertisement from './ad';
 
-const IssueCard: React.FC<IssueBody> = ({
+const IssueCard: React.FC<IssueBody & { ad?: boolean }> = ({
   number,
   title,
   user,
   created_at,
   comments,
   body,
-  avatar
+  avatar,
+  ad
 }) => {
   const history = useHistory();
   const location = useLocation();
@@ -35,20 +37,25 @@ const IssueCard: React.FC<IssueBody> = ({
   }, [number, history]);
 
   return (
-    <div className="issue-card flexible j-sb ai-c" onClick={dive}>
-      <div>
-        <h3>#{number} {title}</h3>
-        <p>작성자: {user}, 작성일: {created_at}</p>
+    <>
+      <div className="issue-card flexible j-sb ai-c" onClick={dive}>
+        <div>
+          <h3>#{number} {title}</h3>
+          <p>작성자: {user}, 작성일: {created_at}</p>
+        </div>
+        <div className="flexible vertical ai-fe">
+          {
+            isDetailPage
+            ? <img src={avatar} className="avatar-size" />
+            : null
+          }
+          <span className="issue-comment-count">코멘트: {comments}</span>
+        </div>
       </div>
-      <div className="flexible vertical ai-fe">
-        {
-          isDetailPage
-          ? <img src={avatar} className="avatar-size" />
-          : null
-        }
-        <span className="issue-comment-count">코멘트: {comments}</span>
-      </div>
-    </div>
+      {
+        ad ? <Advertisement /> : null
+      }
+    </>
   )
 }
 

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import IssueCard from './issueCard';
+import Advertisement from './ad';
 import api from '../api/common';
 
 const IssueList: React.FC = () => {
   const [issueList, setIssueList] = useState([] as Array<object>);
+  const adEnable = 3;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +25,13 @@ const IssueList: React.FC = () => {
     <div className="issue-list">
       {
         issueList ?
-          issueList.map((issue: any) => {
+          issueList.map((issue: any, idx) => {
+            let setAd = false;
+
+            if (idx === adEnable) {
+              setAd = true;
+            }
+            
             return <IssueCard
               number={issue.number}
               title={issue.title}
@@ -32,6 +40,7 @@ const IssueList: React.FC = () => {
               comments={issue.comments}
               body={issue.body}
               avatar={issue.user.avatar_url}
+              ad={setAd}
             />
           })
         : null

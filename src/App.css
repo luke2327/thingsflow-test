@@ -41,3 +41,12 @@
   height: 40px;
   display: block;
 }
+
+.ad {
+  background-image: url('https://placehold.it/500x100?text=ad');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100px;
+  display: block;
+}
